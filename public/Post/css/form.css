@@ -1,0 +1,211 @@
+.app-form-container {
+    display : flex;
+  
+    width: 860px;
+  
+    align-items: center;
+}
+.form-center {
+    display : flex;
+    justify-content: center;
+}
+.app-form-container__left-img {
+    position: relative;
+    top : 0px;
+    left: 0px;
+}
+.app-form-container__right {
+    height : 100%;
+}
+.app-form-container__left {
+    height : 100%;
+    position: relative;
+    background: #EEEEEE;
+}
+.app-form-container__left-img img {
+    width : 100%;
+    display : block;
+}
+.app-form-container__left-list {
+    display : flex;
+    flex-direction: column;
+    padding : 0px 20px 10px 20px;
+}
+.app-form-container__left-list li {
+    display: flex;
+    align-items:flex-start;
+    padding : 3px 0px;
+}
+.app-form-container__left-list>span {
+    font-size: 16px;
+    color: #FF6700;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.app-form-container__left-list i {
+    color: #20863D;
+    font-size: 20px !important;
+    margin-right : 7px;
+}
+.app-form-container__left-list ul li span {
+    font-size: 14px;
+    line-height: 20px;
+   
+}
+.app-form-container__right-tab {
+    display : flex;
+}
+.app-form-container__right-tab span{
+    font-size: 20px;
+    text-transform: uppercase;
+    padding : 8px 0px;
+    font-weight: 400;
+    border-bottom: 1px solid #eeeeee;
+    color: #444;
+    text-align: center;
+    width : 100%;
+}
+.app-form-container__right-tab-active {
+    color: #FF6700 !important; 
+    border-bottom: 1px solid #FF6700  !important;
+}
+.app-form-container__right-form-item input {
+    width : 100%;
+    border : 1px solid #eeeeee;
+    padding : 12px 15px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.app-form-container__right-form-item-right{
+ text-align: end;
+ color: #FF6700;
+ font-size: 14px;
+}
+.app-form-container__right-form-item button {
+    width : 100%;
+    padding : 12px 0px;
+    border-radius: 5px;
+    font-size: 16px;
+    border : none;
+    color : white;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.app-form-container__right-form-item {
+    position: relative;
+}
+.wrapper {
+    display : flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.wrapper {
+    font-size: 15.5px;
+}
+.wrapper span:first-child {
+    width : 30%;
+    height : 2px;
+    background: #eeeeee;
+}
+.wrapper span:last-child {
+    width : 30%;
+    height : 2px;
+    background: #eeeeee;
+}
+.app-form-container__right-form-content {
+    display : flex;
+    flex-direction: column;
+    gap : 15px;
+}
+.app-form-container__right-form-policy p {
+    font-size: 14px;
+    line-height: 20px;
+}
+.app-form-container__right-form-policy {
+    margin-top : 20px;
+}
+.bg-facebook {
+    background: #1877F2;
+}
+.bg-login {
+    background: #FF6700;
+}
+.bg-google {
+   
+    background: #D54B3D;
+}
+.app-form-container__right-form {
+    margin-top : 25px;
+}
+.app-form-container__right {
+    padding : 8px 30px;
+}
+.app-form-container {
+    box-shadow: 1px 1px 4px rgb(0 0 0 / 15%);
+}
+
+
+.app-user-content {
+    display : flex;
+    gap : 30px;
+}
+.app-user-content .app-user-content__item:first-child {
+  flex : 0 1 504px;
+}
+.app-user-content .app-user-content__item:last-child {
+    width : 100%;
+  }
+.app-user-content__item-content-tab {
+    background: #F9920F;
+    display : flex;
+    gap : 10px;
+
+    padding : 20px;
+    align-items: center;
+    color : #fff;
+}
+.app-user-content__item-content-tab i {
+    color : rgb(113, 112, 112) !important;
+    background: #fff;
+    width : 50px;
+    height : 50px;
+    display : flex;
+    font-size: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+.app-user-content__item-content-list-item {
+    display : flex;
+
+    padding : 7px 15px;
+    border-top : 1px solid #eeeeee;
+    border-bottom : 1px solid #eeeeee;
+    align-items: center;
+    gap : 15px;
+    font-size: 16px;
+}
+.app-user-content__item-content-list-item-active {
+    color :#FF6700 !important;
+    background: #F8F8F8 !important;
+    border-left : 3px solid #FF6700;
+}
+.app-user-content__item-content {
+   
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+}
+.app-user-content__item-detail-title {
+    font-size: 17px;
+    text-transform: uppercase;
+    padding-bottom : 8px;
+    border-bottom: 1px solid #eeeeee;
+}
+.app-user-content__item-detail-content {
+    font-size: 14px;
+    padding : 20px 0px;
+}
+.app-user-content__item-detail {
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    padding : 20px;
+}
