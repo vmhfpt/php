@@ -1,5 +1,7 @@
 <?php
-  require_once('../DbHelp/handle.php');
+
+  require_once('../../DbHelp/handle.php');
+  
   $sql = "SELECT * FROM `category`";
   $dataItem = executeResult($sql);
  

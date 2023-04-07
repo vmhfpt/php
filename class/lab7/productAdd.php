@@ -1,4 +1,7 @@
 <?php
+   require_once('../DbHelp/handle.php');
+   $sqlCategory = "SELECT * FROM `category`";
+   $dataCategory = executeResult($sqlCategory);
    
       function validateUploadFile($file) {
 
@@ -94,17 +97,20 @@
        }
 
        if($errorCategory == false && $errorDescription == false && $errorName == false && $errorImage == false && $errorPrice == false){
-           $state = true;
+          
            $random =  mt_rand(100000, 999999);
-           echo "Tên : " .$name. "<br/>";
-           echo "Mô tả : " .$description. "<br/>";
-           echo "Danh mục : " .$category. "<br/>";
-           echo "Giá : " .$price. "<br/>";
-           echo "Ảnh : " .$random.$image. "<br/>";
+          
           
          //  var_dump($file["tmp_name"]); die();
-           $uploadPath = "./img/" ;
+           $uploadPath = "../lab6/img/" ;
            move_uploaded_file($file["tmp_name"],$uploadPath .$random.$file["name"]);
+
+           $sql = "INSERT INTO `products` ( `name`, `thumb`, `price`, `price_sale`, `category_id`, `created_at`, `updated_at`, `description`) VALUES ( '".$name."', '".$random.$image."', '".$price."', '".($price-20000)."', '".$category."','".date('Y-m-d H:m:s')."', '".date('Y-m-d H:m:s')."', '".$description."')";
+           execute($sql);
+         
+           $state = "Thêm sản phẩm " .$name. "Thành công !";
+           $name = $description = $price = $image = '';
+           $category  = 'null';
        }
 
      }
@@ -115,7 +121,7 @@
 <html lang="vi">
 
 <head>
-    <title>Lab 5 Add Product</title>
+    <title>Lab 7 Add Product</title>
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/png" href="/unnamed.png" />
 
@@ -202,12 +208,23 @@
 .container {
 	width : 100%;
 }
+.popup-success {
+    font-size: 17px;
+    padding : 10px 0px;
+    color : white;
+    background: #5cb85c;
+    width : 100%;
+    text-align: center;
+}
 
 </style>
     <div class="container-fluid section-lab">
         <div class="container">
         <div class="container-fluid-form">
          <div class="container-form">
+         <?= $state ? '<div class="popup-success">
+                 <span class=""> '.$state.'</span>
+            </div>' : ''?>
               <div class="">
                  <h2 class="">Product Add </h2>
               </div>
@@ -233,9 +250,13 @@
                             <label for="" class="">Category: </label>
                             <select name="category" id="" class="">
                                 <option <?=$category == 'null' ? 'selected': ""?> value="null" class="">-- Lựa chọn --</option>
-                                <option <?=$category == 'điện thoại' ? 'selected': ""?> value="điện thoại" class="">Điện thoại</option>
-                                <option <?=$category == 'máy tính bảng' ? 'selected': ""?> value="máy tính bảng" class="">Máy tính bảng</option>
-                                <option <?=$category == 'đồng hồ' ? 'selected': ""?> value="đồng hồ" class="">Đồng hồ</option>
+                                <?php
+                                 foreach($dataCategory as $key => $value){
+                                ?>
+                                     <option <?=$category == $value['id'] ? 'selected': ""?> value="<?=$value['id']?>" class=""><?=$value['name']?></option>
+                                <?php
+                                 }
+                                ?>
                             </select>
                             <?=$errorCategory ? "<span class=''> ".$errorCategory."</span>"  : ""?>
                     </div>
@@ -252,11 +273,7 @@
                     </div>
                </form>
 
-               <?php
-                 if($state == true){
-                    echo '<script> alert("validate success") ;</script>';
-                 }
-               ?>
+            
          </div>
      </div>
         </div>

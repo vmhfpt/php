@@ -76,14 +76,14 @@ require '../../admin/PHPMailer/SMTP.php';
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/png" href="/unnamed.png" />
 
-    <script src="../highlight/rainbow-custom.min.js"> </script>
+
     <script src="../highlight/jquery-3.5.1.min.js"></script>
     <meta name="viewport" content="width=device-width, maximum-scale=1.0">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 
-    <link rel="stylesheet" href="../highlight/learn.css">
+  
 </head>
 
 <body>
@@ -92,6 +92,7 @@ require '../../admin/PHPMailer/SMTP.php';
 
     <style>
         .container-fluid-form {
+            height : 100vh;
             width: 100%;
             display: flex;
             justify-content: center;

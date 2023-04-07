@@ -6,7 +6,7 @@ define('nameDatabase', 'lab6');
 
 function getHere()
 {
-  var_dump('I love you');
+  var_dump('I love you lap6');
   die();
 }
 function execute($sql)

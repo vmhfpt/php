@@ -1,5 +1,5 @@
 <?php
-require_once('../DbHelp/handle.php');
+  require_once('../../DbHelp/handle.php');
 $sql = "SELECT  `products`.* , `category`.`name` as `category` FROM `products` JOIN `category` WHERE `products`.`category_id` = `category`.`id`";
 $dataItem = executeResult($sql);
 

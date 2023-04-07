@@ -1,5 +1,6 @@
 <?php
-  require_once('../DbHelp/handle.php');
+    require_once('../../DbHelp/handle.php');
+    
   $nextPage = true;
   $prevPage = false;
   $limit = 3;
