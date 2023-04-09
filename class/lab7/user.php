@@ -5,14 +5,12 @@ $key = "";
   if(!empty($_GET)){
     if(isset($_GET['key'])){
         $key = $_GET['key'];
-        $sql = "SELECT  `products`.* , `category`.`name` as `category` FROM `products` JOIN `category` WHERE `products`.`category_id` = `category`.`id` AND `products`.`name` LIKE '%".$key."%'";
+        $sql = "SELECT * FROM  `users` WHERE `username` LIKE '%".$key."%'";
     }
   }else {
-    $sql = "SELECT  `products`.* , `category`.`name` as `category` FROM `products` JOIN `category` WHERE `products`.`category_id` = `category`.`id`";
+        $sql = "SELECT * FROM  `users`";
   }
-
   $dataItem = executeResult($sql);
- 
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +37,7 @@ $key = "";
     }
     .container-form {
         overflow: auto;
-        height : 75vh;
+        
         padding : 20px;
         background: white;
         width : 450px;
@@ -262,7 +260,7 @@ $key = "";
              <span class="container-popup-delete__tab-name">
                 
              </span>
-             <img src="" alt="123" style="width : 80px; height : 120px;" class="">
+            
         </div>
         <div class="container-popup-delete__btn">
             
@@ -294,7 +292,7 @@ $key = "";
 </section>
 <div class="container mt-3">
 <div class="input-group mb-3">
-<h2>List Products</h2>
+<h2>List Users</h2>
    
   </div>
 
@@ -308,10 +306,8 @@ $key = "";
     <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Category</th>
-        
+        <th>Username</th>
+        <th>Email</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -323,9 +319,8 @@ $key = "";
       ?>
          <tr id="product-<?=$value['id']?>" >
         <td><?=$key + 1?></td>
-        <td class="name-temp"><?=$value['name']?></td>
-        <td><img  src="../lab6/img/<?=$value['thumb']?>" alt="" style="width : 50px ; height : 50px;" class=""></td>
-        <td><?=$value['category']?></td>
+        <td class="name-temp"><?=$value['username']?></td>
+        <td ><?=$value['email']?></td>
         <td><button type="button" data-edit="<?=$value['id']?>" class="btn btn-warning btn-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
         <td><button data-delete="<?=$value['id']?>" type="button" class="btn btn-danger btn-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></td>
       </tr>
@@ -344,7 +339,7 @@ $key = "";
             
         $.ajax({
             method: "POST",
-            url: "./ajax/product.php",
+            url: "./ajax/user.php",
             data: { 
                 type : 'delete',
                 id: $(this).attr("data-delete")
@@ -370,23 +365,17 @@ $key = "";
 
     });
       $(document).on("click", ".submit-product", function(){
-        var formData = new FormData();
-       // formData.append('name',  'cc'); 
-     //  console.log($("input[name=image]")[0].files[0]); return(0);
-        formData.append('name',  $("input[name=name]").val()); 
-        formData.append('price',  $("input[name=price]").val()); 
-        formData.append('category',  $("#category option:selected").val()); 
-        formData.append('id', $(this).attr("data-save")); 
-        formData.append('type', 'update'); 
-        formData.append('image', $("input[name=image]")[0].files[0]); 
-        formData.append('description',  $("input[name=description]").val()); 
+       
         $.ajax({
             method: "POST",
-            url: "./ajax/product.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData
+            url: "./ajax/user.php",
+            data: { 
+                type : 'update',
+                id: $(this).attr("data-save"),
+                username :  $("input[name=username]").val(),
+                email :  $("input[name=email]").val(),
+                password :  $("input[name=password]").val()
+            }
         })
         .done(function(msg) {
             msg = (JSON.parse(msg));
@@ -394,38 +383,21 @@ $key = "";
            if(msg.status == 'success'){
             $('#product-' + msg.data.id).empty();
             $('#product-' + msg.data.id).append(` <td>✔</td>
-        <td class="name-temp">${msg.data.name}</td>
-        <td><img src="../lab6/img/${msg.data.thumb}" alt="" style="width : 50px ; height : 50px;" class=""></td>
-        <td>${msg.data.category}</td>
-        <td><button type="button" data-edit="${msg.data.id}" class="btn btn-warning btn-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-        <td><button data-delete="${msg.data.id}" type="button" class="btn btn-danger btn-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></td>`);
+            <td class="name-temp">${msg.data.username}</td>
+            <td >${msg.data.email}</td>
+            <td><button type="button" data-edit="${msg.data.id}" class="btn btn-warning btn-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
+            <td><button data-delete="${msg.data.id}" type="button" class="btn btn-danger btn-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></td>`);
         $('#product-' + msg.data.id).css('background', 'rgba(28, 214, 112, 0.483)');
         $('.app-popup').css('animation', '0.5s ease-in-out 0s 1 normal forwards running identifier-out');
            }
         });
       });
-    function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("#imgSrc").attr("src", e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $(document).on("change", "#customFile", function(){
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".customFile").addClass("selected").html(fileName);
-            readURL(this);
-        });
+    
 
 $(document).on("click", ".app-popup", function(e){
 if ($(e.target).children(".container-form").length === 0) {
    
 }else {
-    //display: flex; animation: ;
- 
-    
     $('.app-popup').css('animation', '0.5s ease-in-out 0s 1 normal forwards running identifier-out');
 }
 });
@@ -434,7 +406,6 @@ $(document).on("click", ".btn-delete", function(){
     var id = ($(this).attr('data-delete'));
    
     $('.container-popup-delete__tab-name').text($(this).closest('#product-' + id ).find('.name-temp').first().text());
-    $('.container-popup-delete__tab img').attr('src', $(this).closest('#product-' + id ).find('img').first().attr("src"));
     $('.container-popup-delete__btn').html(`<button data-delete="${id}" data-click="true" class="confirm">Có</button>
             <button data-click="false" class="confirm">Hủy</button>`);
 
@@ -473,7 +444,7 @@ $(document).on("click", ".btn-edit", function(){
      
         $.ajax({
             method: "POST",
-            url: "./ajax/product.php",
+            url: "./ajax/user.php",
             data: { 
                 type : 'get',
                 id: $(this).attr("data-edit")
@@ -483,8 +454,8 @@ $(document).on("click", ".btn-edit", function(){
            // console.log(msg);
             $('.show-form').html(msg);
             $('.app-popup').css('display', 'flex');
-    $('.app-popup').css('animation', '0.5s ease-in-out 0s 1 normal forwards running identifier-in');
-    $('.title-edit').text(`Sửa sản phẩm ${$("input[name=name]").val()}`);
+            $('.app-popup').css('animation', '0.5s ease-in-out 0s 1 normal forwards running identifier-in');
+            $('.title-edit').text(`Sửa user ${$("input[name=username]").val()}`);
         });
     
     

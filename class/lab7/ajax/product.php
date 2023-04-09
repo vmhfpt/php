@@ -73,7 +73,7 @@ if (!empty($_POST)) {
 <div data-save="'.$data['id'].'" class="submit submit-product">
      <button  class="" type="button">Save</button>
 </div>';
-    }else {
+    }else if($_POST['type'] == 'update'){
         $image = false;
        
         if(isset($_POST['category'])){
@@ -146,5 +146,19 @@ if (!empty($_POST)) {
             ]
         ]);
 
+    }else if($_POST['type'] == 'delete'){
+        if(isset($_POST['id'])){
+            $id = $_POST['id'];
+            $sqlImg = "SELECT `thumb` FROM `products` WHERE `id` = '".$id."'";
+            $dataImage = executeSingleResult(($sqlImg));
+            unlink("../../lab6/img/".$dataImage['thumb']);
+
+
+            $sql = "DELETE FROM `products` WHERE `id` = '".$id."'";
+            execute($sql);
+            echo json_encode([
+                'state' => 'success'
+            ]);
+        }
     }
 }
